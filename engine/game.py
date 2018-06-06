@@ -35,13 +35,17 @@ class Game:
 
         self.players = [self.x] + self.detectives.copy()
 
-    def next_turn(self):
+    def next_turn(self, is_player_move=False):
         turn = self.turn
         self.turn += 1
 
+
         if turn <= 0:
             # Mr. X's turn
-            move = self.mr_x_ai.play_move(copy.deepcopy(self.x), copy.deepcopy(self.detectives),
+            if (is_player_move):
+                move = is_player_move
+            else:
+                move = self.mr_x_ai.play_move(copy.deepcopy(self.x), copy.deepcopy(self.detectives),
                                           copy.deepcopy(self.x_history))
 
             if move[0] == "2x":
@@ -66,7 +70,10 @@ class Game:
             if self.cant_move(detective):
                 print("Detective {} can't move!".format(detective.name))
             else:
-                move = self.detectives_ai.play_move(copy.deepcopy(detective), copy.deepcopy(self.detectives),
+                if is_player_move:
+                    move = is_player_move
+                else:
+                    move = self.detectives_ai.play_move(copy.deepcopy(detective), copy.deepcopy(self.detectives),
                                                 copy.deepcopy(self.x_history))
                 self.perform_move(detective, move)
 

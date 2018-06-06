@@ -6,7 +6,7 @@
 boardmap = {}
 t = "taxi"
 b = "bus"
-u = "undergound"
+u = "underground"
 with open("board_data.txt", "r") as f:
     for line in f:
         data = [a.strip() for a in line.split("|")]
